@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3443293680634587703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5da0a31161fcd647a84347a4dcf5f72, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  guid: c180652d-2c49-46cc-860d-83d559bcb23e
+  rect:
+    serializedVersion: 2
+    x: 516
+    y: 265.59998
+    width: 160
+    height: 50
+  status: 2
+  children:
+  - {fileID: 2073764329430306706}
+  breakpoint: 0
+--- !u!114 &-551479599974532616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1f0e4cadbd00849ba1ff8feee9ae24, type: 3}
+  m_Name: DebugLogNode
+  m_EditorClassIdentifier: 
+  guid: aee26325-1d00-4030-8c17-cfc392873bbc
+  rect:
+    serializedVersion: 2
+    x: 612
+    y: 468
+    width: 160
+    height: 50
+  status: 2
+  children: []
+  breakpoint: 0
+  _message: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ece7f5458693549bc860d8c4bb53c3, type: 3}
+  m_Name: New Behavior Tree Data
+  m_EditorClassIdentifier: 
+  _treeStatue: 2
+  _nodes:
+  - {fileID: -3443293680634587703}
+  - {fileID: -551479599974532616}
+  - {fileID: 2073764329430306706}
+  _root: {fileID: -3443293680634587703}
+  _baseTree: {fileID: 0}
+--- !u!114 &2073764329430306706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1f0e4cadbd00849ba1ff8feee9ae24, type: 3}
+  m_Name: DebugLogNode
+  m_EditorClassIdentifier: 
+  guid: bc315eb8-4a0c-403a-9ef9-d6b0af28a583
+  rect:
+    serializedVersion: 2
+    x: 537.6
+    y: 452
+    width: 160
+    height: 50
+  status: 2
+  children: []
+  breakpoint: 0
+  _message: 
