@@ -12,12 +12,12 @@ namespace BehaviorTree
         protected override void OnStop() {
         }
 
-        protected override Status OnUpdate() {
-            foreach (var child in children) {
+        protected override NodeState OnUpdate() {
+            foreach (var child in Children) {
                 child.Update();
-                return Status.Running;
+                return NodeState.Running;
             }
-            return Status.Failure;
+            return NodeState.Failure;
         }
     }
 }

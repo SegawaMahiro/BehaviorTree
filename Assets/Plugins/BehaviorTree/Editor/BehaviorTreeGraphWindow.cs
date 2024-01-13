@@ -52,44 +52,36 @@ namespace BehaviorTreeEditor
             rootVisualElement.Add(_graphView);
         }
 
-        [OnOpenAsset()]
-      public static bool OnOpenAsset(int instanceId, int line) {
-            if (EditorUtility.InstanceIDToObject(instanceId) is BehaviorTreeData) {
+        public void OnOpen(BehaviorTreeData treeData) {
+            if (HasOpenInstances<BehaviorTreeGraphWindow>()) {
+                var window = GetWindow<BehaviorTreeGraphWindow>(treeData.name, typeof(SceneView));
 
-                var treeData = EditorUtility.InstanceIDToObject(instanceId) as BehaviorTreeData;
-                
-                if (HasOpenInstances<BehaviorTreeGraphWindow>()) {
-                    var window = GetWindow<BehaviorTreeGraphWindow>(treeData.name, typeof(SceneView));
+                // データが空の場合新たなwindowの作成
+                if (window._data == null) {
+                    window.Open(treeData);
+                    return;
+                }
 
-                    // データが空の場合新たなwindowの作成
-                    if (window._data == null) {
-                        window.Open(treeData);
-                        return true;
-                    }
-
-                    // すでにlayoutに存在している場合そのwindowへ移動
-                    if (window._data.GetInstanceID() == treeData.GetInstanceID()) {
-                        window.Focus();
-                        return false;
-                    }
-                    else {
-                        // 存在していない場合新たに作成し移動
-                        window.Open(treeData);
-                        window.titleContent.text = treeData.name;
-                        window.Focus();
-                        return false;
-                    }
+                // すでにlayoutに存在している場合そのwindowへ移動
+                if (window._data.GetInstanceID() == treeData.GetInstanceID()) {
+                    window.Focus();
+                    return;
                 }
                 else {
-                    // windowそのものが存在しない場合新たに生成
-                    var window = GetWindow<BehaviorTreeGraphWindow>(treeData.name, typeof(SceneView));
-
+                    // 存在していない場合新たに作成し移動
                     window.Open(treeData);
-                    return true;
+                    window.titleContent.text = treeData.name;
+                    window.Focus();
+                    return;
                 }
             }
+            else {
+                // windowそのものが存在しない場合新たに生成
+                var window = GetWindow<BehaviorTreeGraphWindow>(treeData.name, typeof(SceneView));
 
-            return false;
+                window.Open(treeData);
+                return;
+            }
         }
     }
 }

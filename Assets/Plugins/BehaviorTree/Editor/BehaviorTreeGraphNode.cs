@@ -15,17 +15,21 @@ namespace BehaviorTreeEditor
 
         private Toggle _breakpointToggle;
 
+        private BehaviorTreeGraphView _graphView;
+
         public BehaviorTreeNode Node { get { return _node; } }
         public string GUID { get { return _guid; } }
 
-        //"Assets/Plugins/BehaviorTree/Resources/BehaviorTreeNode.uxml"
-        public BehaviorTreeGraphNode(BehaviorTreeNode node) : base("Assets/Plugins/BehaviorTree/Resources/BehaviorTreeNode.uxml") {
+        public BehaviorTreeGraphNode(BehaviorTreeNode node,BehaviorTreeGraphView view) : base("Assets/Plugins/BehaviorTree/Resources/BehaviorTreeNode.uxml") {
+
+            _graphView = view;
+
             _node = node;
-            _guid = node.guid;
+            _guid = node.Guid;
             title = node.GetType().Name;
 
-            style.left = node.rect.position.x;
-            style.top = node.rect.position.y;
+            style.left = node.Rect.position.x;
+            style.top = node.Rect.position.y;
 
             _breakpointToggle = this.Q<Toggle>("Breakpoint");
             _breakpointToggle.RegisterValueChangedCallback(e => OnBreakpointToggleValueChanged(e.newValue));
@@ -67,7 +71,11 @@ namespace BehaviorTreeEditor
             outputContainer.Add(outputPort);
         }
         private void OnBreakpointToggleValueChanged(bool value) {
-            _node.breakpoint = value;
+            _node.Breakpoint = value;
+        }
+
+        public override void OnSelected() {
+            _graphView.OnSelectingNodeChanged(this);
         }
     }
 }

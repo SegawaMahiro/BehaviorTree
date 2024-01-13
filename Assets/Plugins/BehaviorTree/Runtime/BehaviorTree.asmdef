@@ -1,7 +1,9 @@
 {
     "name": "BehaviorTree",
     "rootNamespace": "BehaviorTree",
-    "references": [],
+    "references": [
+        "GUID:db0043f870ca5b34e8ccc45e1901d60a"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -467,7 +467,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 1382418533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949d8a79d2fab0e4380acc18b2512230, type: 3}
+  m_Script: {fileID: 11500000, guid: 37ece7f5458693549bc860d8c4bb53c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tree: {fileID: 11400000, guid: 3b81ea44c79b0c9419c10134e12abd02, type: 2}
+  _blackboard:
+    rid: 6703510498706456582
+  _selectingNode:
+    rid: 6703510498706456585
+  _treeStatue: 2
+  _nodes:
+  - rid: 6703510498706456584
+  - rid: 6703510498706456585
+  _root:
+    rid: 6703510498706456584
+  references:
+    version: 2
+    RefIds:
+    - rid: 6703510498706456582
+      type: {class: BehaviorTreeBlackBoard, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        variables: []
+    - rid: 6703510498706456584
+      type: {class: RootNode, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        Name: RootNode
+        Guid: a5f0476a-5549-49e6-ae3e-bf346b6e8e1b
+        Rect:
+          serializedVersion: 2
+          x: 532
+          y: 282.40002
+          width: 160
+          height: 50
+        State: 2
+        Children:
+        - rid: 6703510498706456585
+        Breakpoint: 0
+    - rid: 6703510498706456585
+      type: {class: SelectorNode, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        Name: SelectorNode
+        Guid: 5ecbd8c4-34fa-409b-9cb6-413109aa1b41
+        Rect:
+          serializedVersion: 2
+          x: 538.4
+          y: 430.40002
+          width: 160
+          height: 50
+        State: 2
+        Children: []
+        Breakpoint: 0

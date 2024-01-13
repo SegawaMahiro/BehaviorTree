@@ -14,20 +14,20 @@ namespace BehaviorTree
         protected override void OnStop() {
         }
 
-        protected override Status OnUpdate() {
-            foreach (var child in children) {
+        protected override NodeState OnUpdate() {
+            foreach (var child in Children) {
                 switch (child.Update()) {
-                    case Status.Running:
-                        return Status.Running;
-                    case Status.Failure:
-                        return Status.Failure;
+                    case NodeState.Running:
+                        return NodeState.Running;
+                    case NodeState.Failure:
+                        return NodeState.Failure;
 
-                    case Status.Success:
+                    case NodeState.Success:
                         break;
                 }
-                return Status.Success;
+                return NodeState.Success;
             }
-            return Status.Failure;
+            return NodeState.Failure;
         }
     }
 }

@@ -12,28 +12,28 @@ namespace BehaviorTree
         protected override void OnStop() {
         }
 
-        protected override Status OnUpdate() {
+        protected override NodeState OnUpdate() {
             bool isAnySuccess = true;
             bool isAnyRunning = false;
 
-            foreach (var child in children) {
+            foreach (var child in Children) {
                 switch (child.Update()) {
-                    case Status.Success:
+                    case NodeState.Success:
                         break;
-                    case Status.Failure:
-                        return Status.Failure;
-                    case Status.Running:
+                    case NodeState.Failure:
+                        return NodeState.Failure;
+                    case NodeState.Running:
                         isAnyRunning = true;
                         break;
                 }
             }
             if (isAnySuccess) {
-                return Status.Success;
+                return NodeState.Success;
             }
             if (isAnyRunning) {
-                return Status.Running;
+                return NodeState.Running;
             }
-            return Status.Failure;
+            return NodeState.Failure;
         }
     }
 }

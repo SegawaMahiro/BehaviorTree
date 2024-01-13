@@ -15,9 +15,9 @@ namespace BehaviorTree
         }
         protected override void OnStop() {
         }
-        protected override Status OnUpdate() {
+        protected override NodeState OnUpdate() {
             Debug.Log($"OnUpdate : {_message}");
-            return Status.Success;
+            return NodeState.Success;
         }
     }
 }

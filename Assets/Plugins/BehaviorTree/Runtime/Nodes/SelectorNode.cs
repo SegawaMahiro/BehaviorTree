@@ -14,21 +14,21 @@ namespace BehaviorTree
         protected override void OnStop() {
         }
 
-        protected override Status OnUpdate() {
-            while (_nodeCount < children.Count) {
-                var child = children[_nodeCount];
+        protected override NodeState OnUpdate() {
+            while (_nodeCount < Children.Count) {
+                var child = Children[_nodeCount];
                 switch (child.Update()) {
-                    case Status.Success:
-                        return Status.Success;
-                    case Status.Failure:
+                    case NodeState.Success:
+                        return NodeState.Success;
+                    case NodeState.Failure:
                         _nodeCount++;
                         break;
-                    case Status.Running:
-                        return Status.Running;
+                    case NodeState.Running:
+                        return NodeState.Running;
                 }
             }
 
-            return Status.Failure;
+            return NodeState.Failure;
         }
     }
 }

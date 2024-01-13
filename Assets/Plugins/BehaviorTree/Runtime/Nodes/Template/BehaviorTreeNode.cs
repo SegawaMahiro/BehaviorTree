@@ -9,9 +9,10 @@ using UnityEngine;
 namespace BehaviorTree
 {
 
-    public abstract class BehaviorTreeNode : ScriptableObject
+    [System.Serializable]
+    public abstract class BehaviorTreeNode
     {
-        public enum Status
+        public enum NodeState
         {
             Success, // 実行成功
             Failure, // 実行失敗
@@ -22,47 +23,43 @@ namespace BehaviorTree
         private const float NodeWidth = 160f;
         private const float NodeHeight = 50f;
 
+         public string Name;
         // nodeごとのid
-        [HideInInspector] public string guid;
+        [HideInInspector] public string Guid;
 
         // 表示するnodeの大きさ
-        [HideInInspector] public Rect rect = new Rect(0, 0, NodeWidth, NodeHeight);
+        [HideInInspector] public Rect Rect = new Rect(0, 0, NodeWidth, NodeHeight);
 
-        public Status status = Status.Running;
+        public NodeState State = NodeState.Running;
 
-        public List<BehaviorTreeNode> children = new List<BehaviorTreeNode>();
+        [SerializeReference] public List<BehaviorTreeNode> Children = new List<BehaviorTreeNode>();
 
-        public bool breakpoint = false;
+        public bool Breakpoint = false;
 
-        private bool _started = false;
+        private bool _isFirstSimulate = true;
 
 
-        public Status Update() {
-            if (!_started) {
+        public NodeState Update() {
+            if (_isFirstSimulate) {
                 OnStart();
 
-                if (breakpoint) {
+                if (Breakpoint) {
                     Debug.Break();
                 }
 
-                _started = true;
+                _isFirstSimulate = false;
             }
-            status = OnUpdate();
-            if (status == Status.Failure || status == Status.Success) {
+            State = OnUpdate();
+            if (State == NodeState.Failure || State == NodeState.Success) {
                 OnStop();
-                _started = false;
+                _isFirstSimulate = true;
             }
 
-            return status;
+            return State;
         }
         protected abstract void OnStart();
         protected abstract void OnStop();
-        protected abstract Status OnUpdate();
-        public BehaviorTreeNode Clone() {
-            BehaviorTreeNode node = Instantiate(this);
-            node.children = children?.ConvertAll(x => x.Clone());
-            return node;
-        }
+        protected abstract NodeState OnUpdate();
     }
 
 }

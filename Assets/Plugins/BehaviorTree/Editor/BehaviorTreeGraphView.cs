@@ -5,8 +5,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEditor.PackageManager.UI;
 
 namespace BehaviorTreeEditor
 {
@@ -41,7 +39,6 @@ namespace BehaviorTreeEditor
             Insert(0, new GridBackground());
 
             GenerateMinimap();
-            GenerateBlackBoard();
 
             if (_window.Data == null || _window.Data.Root == null) {
                 GenerateRootNode();
@@ -64,9 +61,9 @@ namespace BehaviorTreeEditor
         public void SaveGraph() {
             Dictionary<string, BehaviorTreeNode> nodeDictionary = new Dictionary<string, BehaviorTreeNode>();
 
-            // ノードをディクショナリに追加
+            // ノードをguidと一致させる
             foreach (BehaviorTreeGraphNode targetNode in nodes) {
-                BehaviorTreeNode currentNode = _window.Data.Nodes.FirstOrDefault(node => node.guid == targetNode.GUID);
+                BehaviorTreeNode currentNode = _window.Data.Nodes.FirstOrDefault(node => node.Guid == targetNode.GUID);
 
                 if (currentNode != null) {
                     nodeDictionary.Add(targetNode.GUID, currentNode);
@@ -76,7 +73,7 @@ namespace BehaviorTreeEditor
             // 左側にあるものから順にlistに追加
             foreach (BehaviorTreeGraphNode targetNode in nodes) {
                 if (nodeDictionary.TryGetValue(targetNode.GUID, out var currentNode)) {
-                    currentNode.children.Clear();
+                    currentNode.Children.Clear();
 
                     // すべてのedge portを取得
                     var outputPort = targetNode.outputContainer.Children().OfType<Port>().FirstOrDefault();
@@ -88,18 +85,15 @@ namespace BehaviorTreeEditor
                             // edgeに接続されているすべてのnodeを追加
                             BehaviorTreeGraphNode connectedNode = edge.input.node as BehaviorTreeGraphNode;
                             if (connectedNode != null && nodeDictionary.TryGetValue(connectedNode.GUID, out var connectedBehaviorTreeNode)) {
-                                currentNode.children.Add(connectedBehaviorTreeNode);
+                                currentNode.Children.Add(connectedBehaviorTreeNode);
                             }
                         }
                     }
 
                     // ノードごとに位置を更新
-                    currentNode.rect.position = targetNode.GetPosition().position;
+                    currentNode.Rect.position = targetNode.GetPosition().position;
                 }
             }
-
-            EditorUtility.SetDirty(_window.Data);
-            AssetDatabase.SaveAssets();
         }
 
         /// <summary>
@@ -109,22 +103,22 @@ namespace BehaviorTreeEditor
             Dictionary<string, BehaviorTreeGraphNode> nodeDictionary = new Dictionary<string, BehaviorTreeGraphNode>();
 
             foreach (var nodeData in _window.Data.Nodes) {
-                BehaviorTreeGraphNode nodeView = new BehaviorTreeGraphNode(nodeData);
-                nodeDictionary.Add(nodeData.guid, nodeView);
+                BehaviorTreeGraphNode nodeView = new BehaviorTreeGraphNode(nodeData,this);
+                nodeDictionary.Add(nodeData.Guid, nodeView);
                 AddElement(nodeView);
             }
 
             // エッジの生成
             foreach (var nodeData in _window.Data.Nodes) {
-                if (nodeData.children == null) {
-                    nodeData.children = new List<BehaviorTreeNode>(); // 子ノードのリストを初期化
+                if (nodeData.Children == null) {
+                    nodeData.Children = new List<BehaviorTreeNode>(); // 子ノードのリストを初期化
                     continue;
                 }
 
                 // 子ノードを取得しedgeを作成
-                foreach (var childNodeData in nodeData.children) {
-                    if (nodeDictionary.TryGetValue(childNodeData.guid, out var childNodeView)) {
-                        var outputPort = nodeDictionary[nodeData.guid].outputContainer.Children().OfType<Port>().FirstOrDefault();
+                foreach (var childNodeData in nodeData.Children) {
+                    if (nodeDictionary.TryGetValue(childNodeData.Guid, out var childNodeView)) {
+                        var outputPort = nodeDictionary[nodeData.Guid].outputContainer.Children().OfType<Port>().FirstOrDefault();
                         var inputPort = childNodeView.inputContainer.Children().OfType<Port>().FirstOrDefault();
 
                         // portが存在する場合接続
@@ -161,7 +155,7 @@ namespace BehaviorTreeEditor
         /// </summary>
         /// <param name="node">追加するnodeのtype</param>
         public void CreateNodeView(BehaviorTreeNode node) {
-            BehaviorTreeGraphNode nodeView = new BehaviorTreeGraphNode(node);
+            BehaviorTreeGraphNode nodeView = new BehaviorTreeGraphNode(node,this);
             AddElement(nodeView);
         }
         public override List<Port> GetCompatiblePorts(Port startAnchor, NodeAdapter nodeAdapter) {
@@ -172,11 +166,6 @@ namespace BehaviorTreeEditor
             minimap.anchored = true;
             minimap.SetPosition(new Rect(x: 10, y: 30, width: 200, height: 140));
             Add(minimap);
-        }
-        private void GenerateBlackBoard() {
-            var blackboard = new Blackboard();
-            blackboard.Add(new BlackboardSection { title = "BlackBoard" });
-            Add(blackboard);
         }
 
         /// <summary>
@@ -195,6 +184,9 @@ namespace BehaviorTreeEditor
                 }
             }
             return graphViewChange;
+        }
+        public void OnSelectingNodeChanged(BehaviorTreeGraphNode node) {
+            _window.Data.SetSelectingNode(node.GUID);
         }
     }
 }

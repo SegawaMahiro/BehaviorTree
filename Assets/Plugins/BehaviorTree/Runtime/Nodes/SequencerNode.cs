@@ -14,19 +14,19 @@ namespace BehaviorTree
         protected override void OnStop() {
         }
 
-        protected override Status OnUpdate() {
-            var child = children[_nodeCount];
+        protected override NodeState OnUpdate() {
+            var child = Children[_nodeCount];
             switch (child.Update()) {
-                case Status.Running: 
-                    return Status.Running;
-                case Status.Failure:
-                    return Status.Failure;
+                case NodeState.Running: 
+                    return NodeState.Running;
+                case NodeState.Failure:
+                    return NodeState.Failure;
 
-                case Status.Success:
+                case NodeState.Success:
                     _nodeCount++;
                     break;
             }
-            return _nodeCount == children.Count ? Status.Success : Status.Running;
+            return _nodeCount == Children.Count ? NodeState.Success : NodeState.Running;
         }
     }
 }

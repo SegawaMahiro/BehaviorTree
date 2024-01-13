@@ -43,11 +43,11 @@ namespace BehaviorTreeEditor
         bool ISearchWindowProvider.OnSelectEntry(SearchTreeEntry entry, SearchWindowContext context) {
             var type = entry.userData as System.Type;
 
-            BehaviorTreeNode node = ScriptableObject.CreateInstance(type) as BehaviorTreeNode;
+            BehaviorTreeNode node = Activator.CreateInstance(type) as BehaviorTreeNode;
             var worldMousePosition = _window.rootVisualElement.ChangeCoordinatesTo(_window.rootVisualElement.parent, context.screenMousePosition - _window.position.position);
             var localMousePosition = _graphView.contentViewContainer.WorldToLocal(worldMousePosition);
 
-            node.rect.position = localMousePosition;
+            node.Rect.position = localMousePosition;
 
             _graphView.CreateNodeView(_window.Data.CreateNode(node.GetType(),localMousePosition));
 

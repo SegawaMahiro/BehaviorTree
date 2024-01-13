@@ -16,11 +16,11 @@ namespace BehaviorTree
         protected override void OnStop() {
         }
 
-        protected override Status OnUpdate() {
+        protected override NodeState OnUpdate() {
             if (Time.time - _startTime > _duration) {
-                return Status.Success;
+                return NodeState.Success;
             }
-            return Status.Running;
+            return NodeState.Running;
         }
     }
 }
