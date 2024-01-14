@@ -1,11 +1,12 @@
 {
-    "name": "BehaviorTree",
-    "rootNamespace": "BehaviorTree",
+    "name": "CustomAttributeEditor",
+    "rootNamespace": "",
     "references": [
-        "GUID:2e20fccfc8e86a045847b0030a981019",
-        "GUID:49b49c76ee64f6b41bf28ef951cb0e50"
+        "GUID:2e20fccfc8e86a045847b0030a981019"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

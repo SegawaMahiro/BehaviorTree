@@ -8,13 +8,13 @@ using UnityEngine;
 namespace BehaviorTree
 {
     [Serializable]
-    public class BoolVariable : BlackBoardVariable
+    public class FloatVariable : BlackBoardVariable
     {
-        public BoolVariable() {
+        public FloatVariable() {
 
         }
         [SerializeField] private string _key;
-        [SerializeField] private bool _value;
+        [SerializeField] private float _value;
         public override string Key => _key;
 
         public override object Value => _value;

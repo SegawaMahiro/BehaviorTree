@@ -5,30 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using CustomAttributes;
 
 namespace BehaviorTree
 {
     public class BehaviorTreeData : MonoBehaviour
     {
-        [SerializeReference] BehaviorTreeBlackBoard _blackboard = new();
-        [Space(20)]
+        #region Field
+        [Header(">>--------------------------------------------")]
+        // behaviortree内で使用できる変数
+        [SerializeField] BehaviorTreeBlackBoard _blackBoard = new();
+
         [Header(">>--------------------------------------------")]
         [Header("現在選択中のノード詳細")]
-        [SerializeReference] BehaviorTreeNode _selectingNode = null;
+        [SerializeReference] BehaviorTreeNode _selectingNode;
         [Header(">>--------------------------------------------")]
-        [Space(20)]
 
+        // treeの実行状態
         [SerializeField] BehaviorTreeNode.NodeState _treeStatue = BehaviorTreeNode.NodeState.Running;
 
         [Header("このtreeに存在するすべてのノード")]
-        [SerializeReference, ReadOnly] List<BehaviorTreeNode> _nodes = new List<BehaviorTreeNode>();
+        [SerializeReference,ReadOnly] List<BehaviorTreeNode> _nodes = new List<BehaviorTreeNode>();
 
-        [SerializeReference, ReadOnly] BehaviorTreeNode _root = null;
+        // treeの実行を開始するnode
+        [SerializeReference, ReadOnly] BehaviorTreeNode _root;
+        #endregion
 
+        #region Properties
+        public BehaviorTreeBlackBoard BlackBoard { get { return _blackBoard; } }
         public BehaviorTreeNode Root { get { return _root; } }
         public BehaviorTreeNode.NodeState TreeStatue { get { return _treeStatue; } }
         public List<BehaviorTreeNode> Nodes { get { return _nodes; } }
+        #endregion
 
         private void Update() {
             OnUpdate();
@@ -36,7 +43,7 @@ namespace BehaviorTree
 
         public BehaviorTreeNode.NodeState OnUpdate() {
             if (Root.State == BehaviorTreeNode.NodeState.Running) {
-                _treeStatue = Root.Update();
+                _treeStatue = _root.Update();
             }
             return _treeStatue;
         }
@@ -54,6 +61,7 @@ namespace BehaviorTree
                 _root = node;
             }
 
+            node.RootTree = this;
             node.Name = type.Name;
             node.Guid = Guid.NewGuid().ToString();
             node.Rect.position = position;

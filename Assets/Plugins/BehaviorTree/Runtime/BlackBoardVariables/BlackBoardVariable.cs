@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace BehaviorTree
 {
-    [System.Serializable]
-    internal abstract class BlackBoardVariable
+    [Serializable]
+    public abstract class BlackBoardVariable
     {
-        public string Name;
+        public abstract string Key { get; }
+        public abstract object Value { get; }
+
     }
 }

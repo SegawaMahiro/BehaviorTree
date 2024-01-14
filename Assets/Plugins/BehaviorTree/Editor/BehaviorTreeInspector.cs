@@ -19,44 +19,6 @@ namespace BehaviorTreeEditor
                 BehaviorTreeGraphWindow window = ScriptableObject.CreateInstance<BehaviorTreeGraphWindow>();
                 window.OnOpen(runner);
             }
-            if (GUILayout.Button("Add BlackBoardVariable")) {
-                BehaviorTreeData runner = (BehaviorTreeData)target;
-                AddVariableWindow variableWindow = ScriptableObject.CreateInstance<AddVariableWindow>();
-                variableWindow.OnOpen(AddVariable);
-            }
-        }
-        private void AddVariable(string name, Type type) {
-            Debug.Log($"Name: {name}, Type: {type}");
-        }
-    }
-    internal class AddVariableWindow : EditorWindow
-    {
-        private Action<string, Type> addVariableCallback;
-        private string variableName = "";
-        private Type variableType = typeof(string);
-
-        public void OnOpen(Action<string, Type> callback) {
-            addVariableCallback = callback;
-            ShowUtility();
-        }
-
-        private void OnGUI() {
-            GUILayout.Label("Add BlackBoardVariable", EditorStyles.boldLabel);
-
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Name:");
-            variableName = EditorGUILayout.TextField(variableName);
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Type:");
-            Type variableType = EditorGUILayout.TextField("").GetType();
-            GUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Add Variable")) {
-                addVariableCallback?.Invoke(variableName, variableType);
-                Close();
-            }
         }
     }
 }

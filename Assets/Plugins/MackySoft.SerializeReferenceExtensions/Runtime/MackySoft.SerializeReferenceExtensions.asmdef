@@ -1,17 +1,16 @@
 {
-    "name": "BehaviorTree",
-    "rootNamespace": "BehaviorTree",
-    "references": [
-        "GUID:2e20fccfc8e86a045847b0030a981019",
-        "GUID:49b49c76ee64f6b41bf28ef951cb0e50"
-    ],
+    "name": "MackySoft.SerializeReferenceExtensions",
+    "rootNamespace": "",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNITY_2019_3_OR_NEWER"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

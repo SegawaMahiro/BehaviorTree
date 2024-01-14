@@ -426,7 +426,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1382418533
+--- !u!1 &1027542753
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -434,8 +434,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1382418534}
-  - component: {fileID: 1382418535}
+  - component: {fileID: 1027542755}
+  - component: {fileID: 1027542756}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -443,13 +443,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1382418534
+--- !u!4 &1027542755
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382418533}
+  m_GameObject: {fileID: 1027542753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -458,61 +458,142 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1382418535
+--- !u!114 &1027542756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382418533}
+  m_GameObject: {fileID: 1027542753}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37ece7f5458693549bc860d8c4bb53c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blackboard:
-    rid: 6703510498706456582
+  _blackBoard:
+    _blackBoard:
+    - rid: 6703510516412973058
   _selectingNode:
-    rid: 6703510498706456585
+    rid: 6703510514281218067
   _treeStatue: 2
   _nodes:
-  - rid: 6703510498706456584
-  - rid: 6703510498706456585
+  - rid: 6703510514281218063
+  - rid: 6703510514281218064
+  - rid: 6703510514281218065
+  - rid: 6703510514281218066
+  - rid: 6703510514281218067
+  - rid: 6703510514281218068
   _root:
-    rid: 6703510498706456584
+    rid: 6703510514281218063
   references:
     version: 2
     RefIds:
-    - rid: 6703510498706456582
-      type: {class: BehaviorTreeBlackBoard, ns: BehaviorTree, asm: BehaviorTree}
-      data:
-        variables: []
-    - rid: 6703510498706456584
+    - rid: 6703510514281218063
       type: {class: RootNode, ns: BehaviorTree, asm: BehaviorTree}
       data:
         Name: RootNode
-        Guid: a5f0476a-5549-49e6-ae3e-bf346b6e8e1b
+        _rootTree: {fileID: 1027542756}
+        Guid: 66595e69-310f-4a9d-92f9-17b13dad20af
         Rect:
           serializedVersion: 2
-          x: 532
-          y: 282.40002
+          x: 548
+          y: 298.40002
           width: 160
           height: 50
         State: 2
         Children:
-        - rid: 6703510498706456585
+        - rid: 6703510514281218064
         Breakpoint: 0
-    - rid: 6703510498706456585
-      type: {class: SelectorNode, ns: BehaviorTree, asm: BehaviorTree}
+    - rid: 6703510514281218064
+      type: {class: Repeater, ns: BehaviorTree, asm: BehaviorTree}
       data:
-        Name: SelectorNode
-        Guid: 5ecbd8c4-34fa-409b-9cb6-413109aa1b41
+        Name: Repeater
+        _rootTree: {fileID: 1027542756}
+        Guid: 205614b8-0c0d-4c17-9def-0182e09b6654
         Rect:
           serializedVersion: 2
-          x: 538.4
-          y: 430.40002
+          x: 550.4
+          y: 395.2
+          width: 160
+          height: 50
+        State: 2
+        Children:
+        - rid: 6703510514281218065
+        Breakpoint: 0
+    - rid: 6703510514281218065
+      type: {class: Sequencer, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        Name: Sequencer
+        _rootTree: {fileID: 1027542756}
+        Guid: 26c82385-0626-43cb-bac7-288d2f01211f
+        Rect:
+          serializedVersion: 2
+          x: 548.8
+          y: 508
+          width: 160
+          height: 50
+        State: 2
+        Children:
+        - rid: 6703510514281218066
+        - rid: 6703510514281218067
+        - rid: 6703510514281218068
+        Breakpoint: 0
+    - rid: 6703510514281218066
+      type: {class: DebugLog, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        Name: DebugLog
+        _rootTree: {fileID: 1027542756}
+        Guid: 72934f71-b262-4c10-9352-577621dc9382
+        Rect:
+          serializedVersion: 2
+          x: 416.8
+          y: 669.60004
           width: 160
           height: 50
         State: 2
         Children: []
         Breakpoint: 0
+        _blackboardKey: TestInt
+    - rid: 6703510514281218067
+      type: {class: SetBlackBoard, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        Name: SetBlackBoard
+        _rootTree: {fileID: 1027542756}
+        Guid: 8ff642f0-1ab3-470d-b4f3-68a848a88783
+        Rect:
+          serializedVersion: 2
+          x: 590.4
+          y: 690.4
+          width: 160
+          height: 50
+        State: 2
+        Children: []
+        Breakpoint: 0
+        _variable:
+          rid: 6703510514281218070
+    - rid: 6703510514281218068
+      type: {class: Wait, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        Name: Wait
+        _rootTree: {fileID: 1027542756}
+        Guid: a831ace0-3145-40eb-93d0-794750998b57
+        Rect:
+          serializedVersion: 2
+          x: 786.4
+          y: 677.60004
+          width: 160
+          height: 50
+        State: 2
+        Children: []
+        Breakpoint: 0
+        _duration: 1
+    - rid: 6703510514281218070
+      type: {class: IntVariable, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        _key: TestInt
+        _value: 100
+    - rid: 6703510516412973058
+      type: {class: IntVariable, ns: BehaviorTree, asm: BehaviorTree}
+      data:
+        _key: TestInt
+        _value: 0
